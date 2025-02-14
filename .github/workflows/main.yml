@@ -1,0 +1,38 @@
+name: Auto-Build-Release
+run-name: ${{ github.actor }} is building a new release.
+on: 
+  push:
+    #tags:
+    #  - "v*.*.*"
+jobs:
+  do-builds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initalizing Environment
+        uses: actions/checkout@main
+      - name: Get Current Time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYY-MM-DD HH:mm:ss
+          utcOffset: "+08:00"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        if: steps.build.outputs.status == 'success'
+        with:
+          name: Result Files
+          path: |
+            ./arch/Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: steps.build.outputs.status == 'success'
+        with:
+          tag_name: Auto-Build
+          name: Github Actions Auto-Build
+          body: |
+            Automation build. Branch ${{ github.ref }}, Build Time Tag: ${{ steps.current-time.outputs.formattedTime }}
+            
+          draft: false
+          prerelease: false
+          files: |
+            ./arch/Release
