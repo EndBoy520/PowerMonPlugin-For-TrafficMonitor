@@ -19,7 +19,10 @@ jobs:
       - name: Build Files
         id: build
         run: |
-          zip -r ./arch/Release.zip ./arch/Release && echo "status=success" >> $GITHUB_OUTPUT
+          zip -r ./arch/Release/x64.zip ./arch/Release/x64
+          zip -r ./arch/Release/x86.zip ./arch/Release/Win32
+          zip -r ./arch/Release/ARM64.zip ./arch/Release/ARM64
+          echo "status=success" >> $GITHUB_OUTPUT
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         if: steps.build.outputs.status == 'success'
@@ -39,4 +42,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ./arch/Release.zip
+            ./arch/Release/x64.zip
+            ./arch/Release/x86.zip
+            ./arch/Release/ARM64.zip
