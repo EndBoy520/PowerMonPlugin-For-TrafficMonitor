@@ -19,7 +19,7 @@ jobs:
       - name: Build Files
         id: build
         run: |
-          zip arch/Release
+          zip -r arch/Release.zip arch/Release
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         if: steps.build.outputs.status == 'success'
