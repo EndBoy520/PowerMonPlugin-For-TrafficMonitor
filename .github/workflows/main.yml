@@ -16,13 +16,17 @@ jobs:
         with:
           format: YYYY-MM-DD HH:mm:ss
           utcOffset: "+08:00"
+      - name: Build Files
+        id: build
+        run: |
+          zip arch/Release
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         if: steps.build.outputs.status == 'success'
         with:
           name: Result Files
           path: |
-            ./arch/Release
+            ./arch/Release.zip
       - name: Release
         uses: softprops/action-gh-release@v1
         if: steps.build.outputs.status == 'success'
@@ -35,4 +39,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ./arch/Release
+            ./arch/Release.zip
