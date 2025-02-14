@@ -56,4 +56,9 @@
 2024-12-13
 
 > Added Platform power handle logic.
-> 
+>
+
+2025-02-14
+
+> Changed Platform Power handle logic.
+
