@@ -62,3 +62,6 @@
 
 > Changed Platform Power handle logic.
 
+2025-03-04
+
+> Fixed string format collapse during last update.
